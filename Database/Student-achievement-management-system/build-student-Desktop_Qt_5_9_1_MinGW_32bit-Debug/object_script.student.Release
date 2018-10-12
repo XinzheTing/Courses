@@ -1,0 +1,14 @@
+INPUT(
+./release\main.o
+./release\mainwindow.o
+./release\selectdatadialog.o
+./release\insertdialog.o
+./release\updatedialog.o
+./release\deletedialog.o
+./release\qrc_recourse.o
+./release\moc_mainwindow.o
+./release\moc_selectdatadialog.o
+./release\moc_insertdialog.o
+./release\moc_updatedialog.o
+./release\moc_deletedialog.o
+);

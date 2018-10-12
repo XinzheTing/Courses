@@ -1,0 +1,14 @@
+INPUT(
+./debug\main.o
+./debug\mainwindow.o
+./debug\selectdatadialog.o
+./debug\insertdialog.o
+./debug\updatedialog.o
+./debug\deletedialog.o
+./debug\qrc_recourse.o
+./debug\moc_mainwindow.o
+./debug\moc_selectdatadialog.o
+./debug\moc_insertdialog.o
+./debug\moc_updatedialog.o
+./debug\moc_deletedialog.o
+);
