@@ -1,8 +1,13 @@
+__author__ = 'tingxinzhe'
+__version__ = '1.0'
+__date__ = '12/10/2018'
+import os
 import cv2
 import numpy as np
-from matplotlib import pyplot as plt
 
-cap = cv2.VideoCapture('data2.avi')
+module_path = os.path.dirname(__file__)
+filename = module_path + '/data2.avi'
+cap = cv2.VideoCapture(filename)
 # 定义保存视频时的编码并创建VideoWrite对象
 fourcc = cv2.VideoWriter_fourcc(*'XVID')
 out = cv2.VideoWriter('output.avi', fourcc, 20.0, (640, 480))
@@ -13,7 +18,8 @@ Upper = np.array([35, 255, 255])  # 要识别的颜色的上限
 kernel_4 = np.ones((4, 4), np.uint8)  # 4x4的卷积核
 while (cap.isOpened()):
     ret, frame = cap.read()
-    if(ret == False):
+    # 判断视频是否结束。cap.read() 返回一个布尔值（True/False）。如果帧读取的是正确的，就是True，否则为False
+    if(ret is False):
         break
     HSV = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)  # 把BGR图像转换为HSV格式
     mask = cv2.inRange(HSV, Lower, Upper)
@@ -39,17 +45,21 @@ while (cap.isOpened()):
     x, y, w, h = cv2.boundingRect(area_max)
     # 在图像上画上矩形（图片、左上角坐标、右下角坐标、颜色、线条宽度）
     cv2.rectangle(frame, (x, y),
-                  (x+w, y+h), (0, 255,), 3)
+                  (x+w, y+h), (0, 255, 0), 2)
     # 改进一下画矩形的方式（红色与绿色矩形的差别）
     rect = cv2.minAreaRect(area_max)
     box = cv2.boxPoints(rect)
     box = np.int0(box)
     cv2.drawContours(frame, [box], 0, (0, 0, 255), 2)
-    out.write(frame)  # 保存视频 
-    cv2.imshow("processed", frame)
-    #cv2.imshow('target', target)
-    #cv2.imshow('Mask', mask)
+    # cv2.imshow("processed", frame)
+    approx = cv2.approxPolyDP(area_max, 15, True)
+    cv2.polylines(frame, [approx], True, (255, 0, 0), 2)
+    # cv2.drawContours(frame, area_max, -1, (255, 0, 0), 3)
+    cv2.imshow("p", frame)
+    # cv2.imshow('target', target)
+    # cv2.imshow('Mask', mask)
     # cv2.imshow("prod", dilation)
+    out.write(frame)  # 保存视频
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 cap.release()
