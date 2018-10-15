@@ -69,6 +69,7 @@ while (cap.isOpened()):
     # cv2.imshow('Mask', mask)
 
     out.write(frame)  # 保存视频
+    # 按Q键终止程序
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 cap.release()

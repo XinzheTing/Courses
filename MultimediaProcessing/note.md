@@ -2,6 +2,8 @@
 
 - [程序笔记](#程序笔记)
     - [square_detection](#square_detection)
+    - [plot_waveform&spectrogram （python绘制.wav文件的波形图和语谱图）](#plot_waveformspectrogram-python绘制wav文件的波形图和语谱图)
+            - [关于wav文件](#关于wav文件)
 
 ## square_detection
 *任务要求：给定两个视频，视频中有一个黄色的矩形面板，要求将其框出来，并输出结果*
@@ -42,3 +44,18 @@
 > [[opencv]Opencv（Python） 教程-轮廓（2）轮廓特征求取](https://blog.csdn.net/zj360202/article/details/79170265)
 > 
 > [OpenCV-Python 中文教程15——OpenCV 中的轮廓](https://blog.csdn.net/zichen_ziqi/article/details/80912133)
+
+## plot_waveform&spectrogram （python绘制.wav文件的波形图和语谱图）
+
+#### 关于wav文件
+
+1. wav文件存储的音频格式未经过压缩，所以在音质方面不会出现失真问题，但同时其文件体积通常比较大.
+2. Resource Interchange File Format（简称 RIFF），资源交换文件格式，是一种按照标记区块存储数据（tagged chunks）的通用文件存储格式，多用于存储音频、视频等多媒体数据. Microsoft 在 windows 下的 AVI、ANI 、WAV 等都是基于 RIFF 实现的.chunk 是 RIFF 组成的基本单位，每个 CHUNK 可看作存贮了视频的一帧数据或者是音频的一帧数据。
+3. chunk总共由三部分组成FOURCC（使用4字节的ASIIC字符标识类型）
+
+
+> 参考文章
+> 
+> [语音信号处理之时域分析-音色及其Python实现](http://ibillxia.github.io/blog/2013/05/18/audio-signal-processing-time-domain-timbre-python-realization/)
+> 
+> [Python 解析 Wav 文件并绘制波形的方法](https://www.cnblogs.com/lzxwalex/p/6922099.html)
