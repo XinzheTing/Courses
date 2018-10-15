@@ -1,5 +1,4 @@
 __author__ = 'tingxinzhe'
-__version__ = '1.0'
 __date__ = '12/10/2018'
 import os
 import cv2
@@ -20,7 +19,7 @@ Upper = np.array([35, 255, 255])
 while (cap.isOpened()):
     ret, frame = cap.read()
     # 判断视频是否结束。cap.read() 返回一个布尔值（True/False）。如果帧读取的是正确的，就是True，否则为False
-    if(ret is False):
+    if not ret:
         break
 
     # 把BGR图像转换为HSV格式
