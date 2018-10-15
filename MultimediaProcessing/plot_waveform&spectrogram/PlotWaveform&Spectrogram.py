@@ -1,3 +1,5 @@
+__author__ = 'tingxinzhe'
+__date__ = '14/10/2018'
 import wave
 import numpy as np
 import matplotlib.pyplot as plt
