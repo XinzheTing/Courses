@@ -63,6 +63,11 @@ while (cap.isOpened()):
     approx = cv2.approxPolyDP(area_max, 15, True)
     cv2.polylines(frame, [approx], True, (255, 0, 0), 2)
 
+    # 将检测到的图形剪切下来
+    cv2.namedWindow("cut", cv2.WINDOW_NORMAL)
+    img = frame[y:y+h, x:x+w]
+    cv2.imshow("cut", img)
+
     cv2.imshow("processed", frame)
     # cv2.imshow('target', target)
     # cv2.imshow('Mask', mask)
