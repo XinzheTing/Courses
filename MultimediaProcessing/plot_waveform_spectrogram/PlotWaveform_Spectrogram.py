@@ -1,10 +1,17 @@
 __author__ = 'tingxinzhe'
 __date__ = '14/10/2018'
+import os
 import wave
 import numpy as np
 import matplotlib.pyplot as plt
 
-wav_file = wave.open('musicbox.wav', 'r')
+# 获取文件路径
+module_path = os.path.dirname(__file__)
+filein = module_path+'/musicbox.wav'
+
+# 打开文件
+wav_file = wave.open(filein, 'r')
+
 wav_file_info = wav_file.readframes(-1)
 wav_file_info = np.fromstring(wav_file_info, np.int16)
 f = wav_file.getframerate()
