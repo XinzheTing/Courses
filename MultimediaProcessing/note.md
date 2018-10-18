@@ -2,11 +2,13 @@
 
 - [程序笔记](#程序笔记)
     - [square_detection](#square_detection)
-    - [plot_waveform&spectrogram （python绘制.wav文件的波形图和语谱图）](#plot_waveformspectrogram-python绘制wav文件的波形图和语谱图)
+    - [plot_waveform&spectrogram（python绘制.wav文件的波形图和语谱图）](#plot_waveformspectrogrampython绘制wav文件的波形图和语谱图)
             - [关于wav文件](#关于wav文件)
     - [background_subtraction（背景减除）](#background_subtraction背景减除)
     - [About python](#about-python)
-            - [if___name__=='__main__'](#if___name____main__)
+            - [if \_\_name\_\_=='\_\_main\_\_'](#if-__name____main__)
+    - [About OpenCV](#about-opencv)
+            - [OpenCV与Matplotib](#opencv与matplotib)
 
 ## square_detection
 *任务要求：给定两个视频，视频中有一个黄色的矩形面板，要求将其框出来，并输出结果*
@@ -35,7 +37,7 @@
 
    <div align=center>
 
-   ![result2](square_detection/2.png)
+   ![result2](square_detection/result2.png)
 
    <div>
 
@@ -48,7 +50,7 @@
 > 
 > [OpenCV-Python 中文教程15——OpenCV 中的轮廓](https://blog.csdn.net/zichen_ziqi/article/details/80912133)
 
-## plot_waveform&spectrogram （python绘制.wav文件的波形图和语谱图）
+## plot_waveform&spectrogram（python绘制.wav文件的波形图和语谱图）
 
 #### 关于wav文件
 
@@ -69,7 +71,14 @@
 
 ## About python
 
-#### if___name__=='__main__'
+#### if \_\_name\_\_=='\_\_main\_\_'
 
 这个是用来区分当前源文件是作为主程序运行还是作为模块被导入其他文件
-由于每个python模块（python文件）都包含内置的变量__name__，当运行模块被执行的时候，__name__等于文件名（包含了后缀.py）。如果import到其他模块中，则__name__等于模块名称（不包含后缀.py）。而“__main__”等于当前执行文件的名称（包含了后缀.py）。所以当模块被直接执行时，__name__ == '__main__'结果为真；而当模块被import到其他模块中时，__name__ == '__main__'结果为假，就是不调用对应的方法。
+由于每个python模块（python文件）都包含内置的变量\_\_name\_\_，当运行模块被执行的时候，\_\_name\_\_等于文件名（包含了后缀 .py）。如果import到其他模块中，则\_\_name\_\_等于模块名称（不包含后缀 .py）。而“\_\_main\_\_”等于当前执行文件的名称（包含了后缀 .py）。所以当模块被直接执行时，\_\_name\_\_ == '\_\_main\_\_'结果为真；而当模块被import到其他模块中时，\_\_name\_\_ == '\_\_main\_\_'结果为假，就是不调用对应的方法。
+
+## About OpenCV
+
+#### OpenCV与Matplotib
+
+彩色图像使用OpenCV加载时是BGR模式。但是Matplotib是RGB模式。所以彩色图像如果已经被OpenCV读取，那它将不会被Matplotib正确显示。
+在python中有一种很简单的转换方式 ```img1 = img[:,:,::-1]```

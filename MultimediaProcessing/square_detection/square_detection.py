@@ -9,7 +9,7 @@ module_path = os.path.dirname(__file__)
 filein = module_path + '/data2.avi'
 cap = cv2.VideoCapture(filein)  # 打开视频文件
 fileout = module_path+'/output.avi'
-fourcc = cv2.VideoWriter_fourcc(*'XVID')    # 定义保存视频时的编码并创建VideoWrite对象
+fourcc = cv2.VideoWriter_fourcc(*'DIVX')    # 定义保存视频时的编码并创建VideoWrite对象
 out = cv2.VideoWriter(fileout, fourcc, 30.0, (1280, 720))  # 设置输出视频的帧率和分辨率
 
 # 设置要识别的颜色的范围
