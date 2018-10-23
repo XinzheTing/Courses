@@ -1,15 +1,16 @@
 # 程序笔记
 
 - [程序笔记](#程序笔记)
-    - [square_detection](#square_detection)
-    - [plot_waveform&spectrogram（python绘制.wav文件的波形图和语谱图）](#plot_waveformspectrogrampython绘制wav文件的波形图和语谱图)
-            - [关于wav文件](#关于wav文件)
-    - [background_subtraction（背景减除）](#background_subtraction背景减除)
-    - [About python](#about-python)
-            - [if \_\_name\_\_=='\_\_main\_\_'](#if-__name____main__)
-    - [About OpenCV](#about-opencv)
-            - [OpenCV与Matplotib](#opencv与matplotib)
-
+        - [square_detection](#square_detection)
+        - [plot_waveform&spectrogram（python绘制.wav文件的波形图和语谱图）](#plot_waveformspectrogrampython绘制wav文件的波形图和语谱图)
+                        - [关于wav文件](#关于wav文件)
+        - [background_subtraction（背景减除）](#background_subtraction背景减除)
+        - [About python](#about-python)
+                        - [if \_\_name\_\_=='\_\_main\_\_'](#if-__name____main__)
+                        - [文件路径问题](#文件路径问题)
+        - [About OpenCV](#about-opencv)
+                        - [OpenCV与Matplotib](#opencv与matplotib)
+                        - [开启摄像头后没有图像](#开启摄像头后没有图像)
 ## square_detection
 *任务要求：给定两个视频，视频中有一个黄色的矩形面板，要求将其框出来，并输出结果*
 
@@ -76,12 +77,12 @@
 这个是用来区分当前源文件是作为主程序运行还是作为模块被导入其他文件
 由于每个python模块（python文件）都包含内置的变量\_\_name\_\_，当运行模块被执行的时候，\_\_name\_\_等于文件名（包含了后缀 .py）。如果import到其他模块中，则\_\_name\_\_等于模块名称（不包含后缀 .py）。而“\_\_main\_\_”等于当前执行文件的名称（包含了后缀 .py）。所以当模块被直接执行时，\_\_name\_\_ == '\_\_main\_\_'结果为真；而当模块被import到其他模块中时，\_\_name\_\_ == '\_\_main\_\_'结果为假，就是不调用对应的方法。
 
-####文件路径问题
+#### 文件路径问题
 
 在使用VS Code编程中发现，当打开的文件夹包含多个子文件夹，而运行的python程序恰好在某一子文件夹内，那么在打开文件时就不能直接输入文件名（即使程序与要打开的文件在同一文件夹下），不知道为什么不能默认先搜索一下程序所在的文件夹。
 
-**解决办法：**将要打开的文件与程序放到同一文件夹下，然后使用下面两行代码来获取文件的绝对路径。
-```
+**解决办法：** 将要打开的文件与程序放到同一文件夹下，然后使用下面两行代码来获取文件的绝对路径。
+```python
 module_path = os.path.dirname(__file__)
 filein = module_path+'/文件名.扩展名'
 ```
@@ -93,3 +94,12 @@ filein = module_path+'/文件名.扩展名'
 
 彩色图像使用OpenCV加载时是BGR模式。但是Matplotib是RGB模式。所以彩色图像如果已经被OpenCV读取，那它将不会被Matplotib正确显示。
 在python中有一种很简单的转换方式 ```img1 = img[:,:,::-1]```
+
+#### 开启摄像头后没有图像
+
+在做背景减除时发现，运行程序摄像头开启了去不显示图像（我的笔记本电脑在摄像头开启时，摄像头旁边的一个小灯会亮），开以为是电脑问题或是权限不够，然后在网上各种找相关的问题。后来发现是因为程序中缺少一句话：
+```python
+if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+```
+那么这句话是什么意思呢？这句话的主要是等待1ms的键盘输入
