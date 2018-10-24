@@ -1,16 +1,20 @@
 # 程序笔记
 
+<!-- TOC -->
+
 - [程序笔记](#程序笔记)
-        - [square_detection](#square_detection)
-        - [plot_waveform&spectrogram（python绘制.wav文件的波形图和语谱图）](#plot_waveformspectrogrampython绘制wav文件的波形图和语谱图)
-                        - [关于wav文件](#关于wav文件)
-        - [background_subtraction（背景减除）](#background_subtraction背景减除)
-        - [About python](#about-python)
-                        - [if \_\_name\_\_=='\_\_main\_\_'](#if-__name____main__)
-                        - [文件路径问题](#文件路径问题)
-        - [About OpenCV](#about-opencv)
-                        - [OpenCV与Matplotib](#opencv与matplotib)
-                        - [开启摄像头后没有图像](#开启摄像头后没有图像)
+    - [square_detection](#square_detection)
+    - [plot_waveform&spectrogram（python绘制.wav文件的波形图和语谱图）](#plot_waveformspectrogrampython绘制wav文件的波形图和语谱图)
+            - [关于wav文件](#关于wav文件)
+    - [background_subtraction（背景减除）](#background_subtraction背景减除)
+    - [About python](#about-python)
+            - [if \_\_name\_\_=='\_\_main\_\_'](#if-\_\_name\_\_\_\_main\_\_)
+            - [文件路径问题](#文件路径问题)
+    - [About OpenCV](#about-opencv)
+            - [OpenCV与Matplotib](#opencv与matplotib)
+            - [开启摄像头后没有图像](#开启摄像头后没有图像)
+
+<!-- /TOC -->
 ## square_detection
 *任务要求：给定两个视频，视频中有一个黄色的矩形面板，要求将其框出来，并输出结果*
 
@@ -102,4 +106,4 @@ filein = module_path+'/文件名.扩展名'
 if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 ```
-那么这句话是什么意思呢？这句话的主要是等待1ms的键盘输入
+那么这句话是什么意思呢？这句话的有一个函数``` cv2.waitKey ```主要作用是等待1ms的键盘输入然后返回输入符号的ASCII码，如果没有输入则返回-1。后面的``` &0xFF ```是取返回值的低八位，主要是针对64位操作系统有时返回值不止8位，等号后面的``` ord('q') ```是计算q键的ASCII码，所以这句话是说“按q键退出”。不要小瞧了这简单的一段程序，就是因为少了这一句，while循环在飞速的执行，导致窗口没有画面显示，而有了这段程序while循环在执行时就会有1ms的暂停，就是这1ms使得图像得以正常显示。无论是从摄像头中读取画面还是从视频中读取，都需要这样一个停顿来时图像正常显示，但是停顿时间不太一样，摄像头由于需要实时性，所以1ms就好（``` cv2.waitKey ```中传参数0则为无限等待直到键盘有输入），但是对于视频，需要其以正常速度播放的话一般设置在25~30ms（不同的等待时间就相当于改变视频的播放速度）
