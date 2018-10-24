@@ -1,44 +1,6 @@
-# 程序笔记
-<!-- vscode-markdown-toc -->
-* 1. [square_detection](#square_detection)
-* 2. [plot_waveform&spectrogram（python绘制.wav文件的波形图和语谱图）](#plot_waveformspectrogrampython.wav)
-		* 2.1. [关于wav文件](#wav)
-* 3. [background_subtraction（背景减除）](#background_subtraction)
-		* 3.1. [KNN](#KNN)
-* 4. [About python](#Aboutpython)
-		* 4.1. [if \_\_name\_\_=='\_\_main\_\_'](#if__name____main__)
-		* 4.2. [文件路径问题](#)
-* 5. [About OpenCV](#AboutOpenCV)
-		* 5.1. [OpenCV与Matplotib](#OpenCVMatplotib)
-		* 5.2. [开启摄像头（打开视频）后没有图像](#-1)
 
-<!-- vscode-markdown-toc-config
-	numbering=true
-	autoSave=true
-	/vscode-markdown-toc-config -->
-<!-- /vscode-markdown-toc -->
-
-##  1. <a name='square_detection'></a>square_detection
-
-<<<<<<< HEAD
-<!-- TOC -->
-
-- [程序笔记](#程序笔记)
-    - [square_detection](#square_detection)
-    - [plot_waveform&spectrogram（python绘制.wav文件的波形图和语谱图）](#plot_waveformspectrogrampython绘制wav文件的波形图和语谱图)
-            - [关于wav文件](#关于wav文件)
-    - [background_subtraction（背景减除）](#background_subtraction背景减除)
-    - [About python](#about-python)
-            - [if \_\_name\_\_=='\_\_main\_\_'](#if-\_\_name\_\_\_\_main\_\_)
-            - [文件路径问题](#文件路径问题)
-    - [About OpenCV](#about-opencv)
-            - [OpenCV与Matplotib](#opencv与matplotib)
-            - [开启摄像头后没有图像](#开启摄像头后没有图像)
-
-<!-- /TOC -->
 ## square_detection
-=======
->>>>>>> df713253391d2fbf910370859cdec2c5b67dc742
+
 *任务要求：给定两个视频，视频中有一个黄色的矩形面板，要求将其框出来，并输出结果*
 
 整体思路就是使用HSV模型利用颜色的不同将目标物体的与周围环境区分开（适用于目标颜色与周围环境颜色差距较大时），然后再将其二值化后将目标物体框出。
@@ -78,9 +40,9 @@
 > 
 > [OpenCV-Python 中文教程15——OpenCV 中的轮廓](https://blog.csdn.net/zichen_ziqi/article/details/80912133)
 
-##  2. <a name='plot_waveformspectrogrampython.wav'></a>plot_waveform&spectrogram（python绘制.wav文件的波形图和语谱图）
+## plot_waveform&spectrogram（python绘制.wav文件的波形图和语谱图）
 
-####  2.1. <a name='wav'></a>关于wav文件
+#### 关于wav文件
 
 1. wav文件存储的音频格式未经过压缩，所以在音质方面不会出现失真问题，但同时其文件体积通常比较大.
 2. Resource Interchange File Format（简称 RIFF），资源交换文件格式，是一种按照标记区块存储数据（tagged chunks）的通用文件存储格式，多用于存储音频、视频等多媒体数据. Microsoft 在 windows 下的 AVI、ANI 、WAV 等都是基于 RIFF 实现的.chunk 是 RIFF 组成的基本单位，每个 CHUNK 可看作存贮了视频的一帧数据或者是音频的一帧数据。
@@ -93,18 +55,18 @@
 > 
 > [Python 解析 Wav 文件并绘制波形的方法](https://www.cnblogs.com/lzxwalex/p/6922099.html)
 
-##  3. <a name='background_subtraction'></a>background_subtraction（背景减除）
+## background_subtraction（背景减除）
 
-####  3.1. <a name='KNN'></a>KNN
+#### KNN
 
-##  4. <a name='Aboutpython'></a>About python
+## About python
 
-####  4.1. <a name='if__name____main__'></a>if \_\_name\_\_=='\_\_main\_\_'
+#### if \_\_name\_\_=='\_\_main\_\_'
 
 这个是用来区分当前源文件是作为主程序运行还是作为模块被导入其他文件
 由于每个python模块（python文件）都包含内置的变量\_\_name\_\_，当运行模块被执行的时候，\_\_name\_\_等于文件名（包含了后缀 .py）。如果import到其他模块中，则\_\_name\_\_等于模块名称（不包含后缀 .py）。而“\_\_main\_\_”等于当前执行文件的名称（包含了后缀 .py）。所以当模块被直接执行时，\_\_name\_\_ == '\_\_main\_\_'结果为真；而当模块被import到其他模块中时，\_\_name\_\_ == '\_\_main\_\_'结果为假，就是不调用对应的方法。
 
-####  4.2. <a name=''></a>文件路径问题
+#### 文件路径问题
 
 在使用VS Code编程中发现，当打开的文件夹包含多个子文件夹，而运行的python程序恰好在某一子文件夹内，那么在打开文件时就不能直接输入文件名（即使程序与要打开的文件在同一文件夹下），不知道为什么不能默认先搜索一下程序所在的文件夹。
 
@@ -115,14 +77,14 @@ filein = module_path+'/文件名.扩展名'
 ```
 
 
-##  5. <a name='AboutOpenCV'></a>About OpenCV
+## About OpenCV
 
-####  5.1. <a name='OpenCVMatplotib'></a>OpenCV与Matplotib
+#### OpenCV与Matplotib
 
 彩色图像使用OpenCV加载时是BGR模式。但是Matplotib是RGB模式。所以彩色图像如果已经被OpenCV读取，那它将不会被Matplotib正确显示。
 在python中有一种很简单的转换方式 ```img1 = img[:,:,::-1]```
 
-####  5.2. <a name='-1'></a>开启摄像头（打开视频）后没有图像
+#### 开启摄像头（打开视频）后没有图像
 
 在做背景减除时发现，运行程序摄像头开启了去不显示图像（我的笔记本电脑在摄像头开启时，摄像头旁边的一个小灯会亮），开以为是电脑问题或是权限不够，然后在网上各种找相关的问题。后来发现是因为程序中缺少一句话：
 ```python
