@@ -1,4 +1,20 @@
+# 程序笔记
+<!-- TOC -->
 
+- [程序笔记](#程序笔记)
+    - [square_detection](#square_detection)
+    - [plot_waveform&spectrogram（python绘制.wav文件的波形图和语谱图）](#plot_waveformspectrogrampython绘制wav文件的波形图和语谱图)
+            - [关于wav文件](#关于wav文件)
+    - [background_subtraction（背景减除）](#background_subtraction背景减除)
+            - [KNN](#knn)
+    - [About python](#about-python)
+            - [if \_\_name\_\_=='\_\_main\_\_'](#if-\_\_name\_\_\_\_main\_\_)
+            - [文件路径问题](#文件路径问题)
+    - [About OpenCV](#about-opencv)
+            - [OpenCV与Matplotib](#opencv与matplotib)
+            - [开启摄像头（打开视频）后没有图像](#开启摄像头打开视频后没有图像)
+
+<!-- /TOC -->
 ## square_detection
 
 *任务要求：给定两个视频，视频中有一个黄色的矩形面板，要求将其框出来，并输出结果*
