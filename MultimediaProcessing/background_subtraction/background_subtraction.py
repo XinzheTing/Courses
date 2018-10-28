@@ -1,6 +1,7 @@
 __author__ = 'tingxinzhe'
 __date__ = '15/10/2018'
 
+import os
 import cv2
 
 # KNN
@@ -8,7 +9,7 @@ import cv2
 
 def KNN_method(video):
     camera = cv2.VideoCapture(video)
-    KNN_history = 10
+    KNN_history = 50
     # 背景消除器，设置阴影检测
     KNN_bs = cv2.createBackgroundSubtractorKNN(detectShadows=True)
     KNN_bs.setHistory(KNN_history)
@@ -19,10 +20,9 @@ def KNN_method(video):
         ret, frame = camera.read()
         if not ret:
             break
-        cv2.imshow('test', frame)
         fg_mask = KNN_bs.apply(frame)
         if frames < KNN_history:
-            frame += 1
+            frames += 1
             continue
         # 对原始帧进行膨胀去噪
         th = cv2.threshold(fg_mask.copy(), 244, 255, cv2.THRESH_BINARY)[1]
@@ -42,7 +42,8 @@ def KNN_method(video):
             if 500 < area < 3000:
                 cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
         cv2.imshow('KNN', frame)
-        if cv2.waitKey(1) & 0xFF == 27:
+        cv2.imshow('KNN_b', dilated)
+        if cv2.waitKey(10) & 0xFF == 27:
             break
     camera.release()
     cv2.destroyAllWindows()
@@ -52,11 +53,12 @@ def KNN_method(video):
 
 def MOG2_method(video):
     camera = cv2.VideoCapture(video)
-    MOG2_history = 150
-    MOG2_bs = cv2.createBackgroundSubtractorMOG2(history=MOG2_history)
+    MOG2_history = 120
+    MOG2_bs = cv2.createBackgroundSubtractorMOG2(
+        history=MOG2_history, detectShadows=True)
     MOG2_bs.setHistory(MOG2_history)
     frames = 0
-    cv2.namedWindows('MOG2', cv2.WINDOW_NORMAL)
+    cv2.namedWindow('MOG2', cv2.WINDOW_NORMAL)
     while True:
         ret, frame = camera.read()
         if not ret:
@@ -80,16 +82,18 @@ def MOG2_method(video):
             if 500 < area < 3000:
                 cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
         cv2.imshow('MOG2', frame)
+        cv2.imshow('MOG2_b', binary)
         if cv2.waitKey(1) & 0xFF == 27:
             break
     camera.release()
+    cv2.destroyAllWindows()
 
 # GMG
 
 
 def GMG_method(video):
     camera = cv2.VideoCapture(video)
-    GMG_history = 150
+    GMG_history = 40
     GMG_bs = cv2.bgsegm.createBackgroundSubtractorGMG(
         initializationFrames=GMG_history)
 
@@ -122,14 +126,17 @@ def GMG_method(video):
             area = cv2.contourArea(c)
             if 500 < area < 3000:
                 cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
-
         cv2.imshow('GMG', frame)
+        cv2.imshow('GMG_b', binary)
         if cv2.waitKey(1) & 0xFF == 27:
             break
     camera.release()
+    cv2.destroyAllWindows()
 
 
 if __name__ == '__main__':
-    KNN_method(0)
-    # MOG2_method(0)
-    # GMG_method(0)
+    model_path = os.path.dirname(__file__)
+    filein = model_path+'/level_4.mp4'
+    KNN_method(filein)
+    MOG2_method(filein)
+    GMG_method(filein)
