@@ -1,22 +1,12 @@
+import os
 import cv2
 import copy
 import numpy as np
 from matplotlib import pyplot as plt
 
-# 绘制直方图
-
-
-def darwHistogram(myData, Tittle, Xlabel, Ylabel):
-    plt.figure(Tittle)
-    plt.xlabel(Xlabel)
-    plt.ylabel(Ylabel)
-    n, bins, patches = plt.hist(
-        myData, bins=256, density=0, edgecolor='None', facecolor='red')
-    plt.show()
-
-
-img = cv2.imread(
-    'E:/document/Courses/MultimediaProcessing/image_enhance/testimg.jpg')
+module_path = os.path.dirname(__file__)
+filein = module_path+'/testimg.jpg'
+img = cv2.imread(filein)
 # cv2.imshow('y', img)
 imgGray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 imgArray = imgGray.flatten()
@@ -56,8 +46,9 @@ plt.hist(imgArrayEnhanced, bins=256, density=0,
          edgecolor='None', facecolor='red')
 plt.show()
 
-# 恢复彩色图像
 imgGrayEnhanced = imgArrayEnhanced.reshape(512, 512)
+
+# 恢复彩色图像
 # B = img[:, :, 0]
 # G = img[:, :, 1]
 # R = img[:, :, 2]
