@@ -6,6 +6,8 @@
         - [square_detection](#square_detection)
         - [background_subtraction（背景减除）](#background_subtraction背景减除)
             - [KNN](#knn)
+        - [image_enhance(图像增强)](#image_enhance图像增强)
+        - [灰度图转换为RGB图像(GRAY2RGB)](#灰度图转换为rgb图像gray2rgb)
     - [语音(Speech)](#语音speech)
         - [plot_waveform&spectrogram（python绘制.wav文件的波形图和语谱图）](#plot_waveformspectrogrampython绘制wav文件的波形图和语谱图)
             - [关于wav文件](#关于wav文件)
@@ -14,8 +16,9 @@
             - [if \_\_name\_\_=='\_\_main\_\_'](#if-\_\_name\_\_\_\_main\_\_)
             - [文件路径问题](#文件路径问题)
         - [About OpenCV](#about-opencv)
-            - [OpenCV与Matplotib](#opencv与matplotib)
+            - [OpenCV与Matplotlib读取彩色图像模式不同](#opencv与matplotlib读取彩色图像模式不同)
             - [开启摄像头（打开视频）后没有图像](#开启摄像头打开视频后没有图像)
+            - [RGB2GRAY OR BGR2GRAY](#rgb2gray-or-bgr2gray)
 
 <!-- /TOC -->
 
@@ -51,7 +54,7 @@
 
    ![result2](square_detection/result2.png)
 
-   <div>
+   </div>
 
 > 参考文章：
 > [python opencv检测目标颜色](https://blog.csdn.net/Lingdongtianxia/article/details/75194950)
@@ -66,6 +69,10 @@
 
 #### KNN
 
+### image_enhance(图像增强)
+
+### 灰度图转换为RGB图像(GRAY2RGB)
+
 ## 语音(Speech)
 
 ### plot_waveform&spectrogram（python绘制.wav文件的波形图和语谱图）
@@ -74,8 +81,8 @@
 
 1. wav文件存储的音频格式未经过压缩，所以在音质方面不会出现失真问题，但同时其文件体积通常比较大.
 2. Resource Interchange File Format（简称 RIFF），资源交换文件格式，是一种按照标记区块存储数据（tagged chunks）的通用文件存储格式，多用于存储音频、视频等多媒体数据. Microsoft 在 windows 下的 AVI、ANI 、WAV 等都是基于 RIFF 实现的.chunk 是 RIFF 组成的基本单位，每个 CHUNK 可看作存贮了视频的一帧数据或者是音频的一帧数据。
-3. chunk总共由三部分组成FOURCC（使用4字节的ASIIC字符标识类型）
-
+3. chunk总共由三部分组成FOURCC（使用4字节的ASIIC字符标识类型）、SIZE（数据的大小）、DATA（用于存储数据）
+4. PCM 脉冲编码调制是 Pulse Code Modulation 的缩写，脉冲编码调制是数字通信的编码方式之一. 主要过程是将话音、图像等模拟信号每隔一定时间进行取样，使其离散化，同时将抽样值按分层单位四舍五入取整量化，同时将抽样值按一组二进制码来表示抽样脉冲的幅值.
 
 > 参考文章
 > 
@@ -105,9 +112,9 @@ filein = module_path+'/文件名.扩展名'
 
 ### About OpenCV
 
-#### OpenCV与Matplotib
+#### OpenCV与Matplotlib读取彩色图像模式不同
 
-彩色图像使用OpenCV加载时是BGR模式。但是Matplotib是RGB模式。所以彩色图像如果已经被OpenCV读取，那它将不会被Matplotib正确显示。
+彩色图像使用OpenCV加载时是BGR模式。但是Matplotlib是RGB模式。所以彩色图像如果已经被OpenCV读取，那它将不会被Matplotlib正确显示。
 在python中有一种很简单的转换方式 ```img1 = img[:,:,::-1]```
 
 #### 开启摄像头（打开视频）后没有图像
@@ -120,3 +127,19 @@ if cv2.waitKey(1) & 0xFF == ord('q'):
 那么这句话是什么意思呢？这句话的有一个函数``` cv2.waitKey ```主要作用是等待1ms的键盘输入然后返回输入符号的ASCII码，如果没有输入则返回-1。后面的``` &0xFF ```是取返回值的低八位，主要是针对64位操作系统有时返回值不止8位，等号后面的``` ord('q') ```是计算q键的ASCII码，所以这句话是说“按q键退出”。
 
 不要小瞧了这简单的一段程序，就是因为少了这一句，while循环在飞速的执行，导致窗口没有画面显示，而有了这段程序while循环在执行时就会有1ms的暂停，就是这1ms使得图像得以正常显示。无论是从摄像头中读取画面还是从视频中读取，都需要这样一个停顿来时图像正常显示，但是停顿时间不太一样，摄像头由于需要实时性，所以1ms就好（``` cv2.waitKey ```中传参数0则为无限等待直到键盘有输入），但是对于视频，需要其以正常速度播放的话一般设置在25~30ms（不同的等待时间就相当于改变视频的播放速度）
+
+#### RGB2GRAY OR BGR2GRAY
+
+在前面我们提到了OpenCV和matplotlib在加载彩色图像时使用的模式是不同的，OpenCV使用的是BGR模式，所以在将彩色图像转换为灰度图时需要使用``` cv2.cvtColor(img,cv2.COLOR_BGR2GRAY) ```而不是``` cv2.cvtColor(img,cv2.COLOR_RGB2GRAY) ```.
+
+奇怪的是OpenCV对于这两种转化都支持，但是转换结果会有所不同。我在做直方图均衡化的实验时发现了这个问题。
+
+我首先把一幅图像读进来，然后将其转化为灰度图，在我尝试[将灰度图恢复成彩色图像](#灰度图转换为RGB图像(GRAY2RGB))时我发现恢复后的图像与原图在色彩上有较大差别,其原因就是在灰度化时色彩模式选错了。之后我特意尝试了``` cv2.cvtColor(img,cv2.COLOR_BGR2GRAY) ```和``` cv2.cvtColor(img,cv2.COLOR_RGB2GRAY) ```这两种方式在对由OpenCV加载进来的图像(BGR模式)进行灰度化处理后有什么不同，结果如下图：
+
+<div align=center>
+
+![BGR2GRAY && RGB2GRAY](image_enhance/BGR2GRAY&RGB2GRAY.png)
+
+</div>
+
+乍一看感觉这两幅图没什么不一样，但是如果仔细看的话就会发现左图(BGR2GRAY)的颜色比右图(RGB2GRAY)的颜色要浅一些，但要是没有对比的话还真是很难看出来。
