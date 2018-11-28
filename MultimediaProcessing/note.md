@@ -1,27 +1,24 @@
 # 程序笔记
-<!-- TOC -->
-
-- [程序笔记](#程序笔记)
-    - [图像(Image)](#图像image)
-        - [square_detection](#square_detection)
-        - [background_subtraction（背景减除）](#background_subtraction背景减除)
+- [程序笔记](#%E7%A8%8B%E5%BA%8F%E7%AC%94%E8%AE%B0)
+    - [图像(Image)](#%E5%9B%BE%E5%83%8Fimage)
+        - [square_detection](#squaredetection)
+        - [background_subtraction（背景减除）](#backgroundsubtraction%E8%83%8C%E6%99%AF%E5%87%8F%E9%99%A4)
             - [KNN](#knn)
-        - [image_enhance(图像增强)](#image_enhance图像增强)
-        - [灰度图转换为RGB图像(GRAY2RGB)](#灰度图转换为rgb图像gray2rgb)
-    - [语音(Speech)](#语音speech)
-        - [plot_waveform&spectrogram（python绘制.wav文件的波形图和语谱图）](#plot_waveformspectrogrampython绘制wav文件的波形图和语谱图)
-            - [关于wav文件](#关于wav文件)
-    - [遇到的问题(Problems)](#遇到的问题problems)
+        - [image_enhance(图像增强)](#imageenhance%E5%9B%BE%E5%83%8F%E5%A2%9E%E5%BC%BA)
+            - [histogram_equalization](#histogramequalization)
+    - [语音(Speech)](#%E8%AF%AD%E9%9F%B3speech)
+        - [plot_waveform&spectrogram（python绘制.wav文件的波形图和语谱图）](#plotwaveformspectrogrampython%E7%BB%98%E5%88%B6wav%E6%96%87%E4%BB%B6%E7%9A%84%E6%B3%A2%E5%BD%A2%E5%9B%BE%E5%92%8C%E8%AF%AD%E8%B0%B1%E5%9B%BE)
+            - [关于wav文件](#%E5%85%B3%E4%BA%8Ewav%E6%96%87%E4%BB%B6)
+        - [Chinese_word_segmentation(中文分词)](#chinesewordsegmentation%E4%B8%AD%E6%96%87%E5%88%86%E8%AF%8D)
+            - [关于CRF++模板](#%E5%85%B3%E4%BA%8Ecrf%E6%A8%A1%E6%9D%BF)
+    - [遇到的问题(Problems)](#%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98problems)
         - [About python](#about-python)
-            - [if \_\_name\_\_=='\_\_main\_\_'](#if-\_\_name\_\_\_\_main\_\_)
-            - [文件路径问题](#文件路径问题)
+            - [if \_\_name\_\_=='\_\_main\_\_'](#if-namemain)
+            - [文件路径问题](#%E6%96%87%E4%BB%B6%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98)
         - [About OpenCV](#about-opencv)
-            - [OpenCV与Matplotlib读取彩色图像模式不同](#opencv与matplotlib读取彩色图像模式不同)
-            - [开启摄像头（打开视频）后没有图像](#开启摄像头打开视频后没有图像)
+            - [OpenCV与Matplotlib读取彩色图像模式不同](#opencv%E4%B8%8Ematplotlib%E8%AF%BB%E5%8F%96%E5%BD%A9%E8%89%B2%E5%9B%BE%E5%83%8F%E6%A8%A1%E5%BC%8F%E4%B8%8D%E5%90%8C)
+            - [开启摄像头（打开视频）后没有图像](#%E5%BC%80%E5%90%AF%E6%91%84%E5%83%8F%E5%A4%B4%E6%89%93%E5%BC%80%E8%A7%86%E9%A2%91%E5%90%8E%E6%B2%A1%E6%9C%89%E5%9B%BE%E5%83%8F)
             - [RGB2GRAY OR BGR2GRAY](#rgb2gray-or-bgr2gray)
-
-<!-- /TOC -->
-
 ## 图像(Image)
 
 ### square_detection
@@ -57,6 +54,7 @@
    </div>
 
 > 参考文章：
+>
 > [python opencv检测目标颜色](https://blog.csdn.net/Lingdongtianxia/article/details/75194950)
 > 
 > [Python图像处理（7）：利用轮廓分块处理](https://blog.csdn.net/lights_joy/article/details/46368197)
@@ -71,7 +69,13 @@
 
 ### image_enhance(图像增强)
 
-### 灰度图转换为RGB图像(GRAY2RGB)
+#### histogram_equalization
+
+在现实的拍摄过程中，比如说视频监控领域，由于其图像的灰度分布集中在较窄的范围内，这就导致了图像的细节不够清晰。为什么不清晰呢，因为灰度分布较窄时，那么，在计算对比度的时候，对比度就很小，所以就不清晰。为了使得图像变得清晰，那么就需要使得灰度值的差别变大，为了使得灰度值的差别变大，就意味着灰度分布就变的较宽，使得灰度值分布变得均匀，在某个灰度级区间内，像素的个数分布大致相同，这样才能使得图像的对比度增强，细节变得清晰可见。
+
+>参考文章
+>
+> [python数字图像处理（9）：直方图与均衡化](https://blog.csdn.net/denny2015/article/details/50581784)
 
 ## 语音(Speech)
 
@@ -89,6 +93,51 @@
 > [语音信号处理之时域分析-音色及其Python实现](http://ibillxia.github.io/blog/2013/05/18/audio-signal-processing-time-domain-timbre-python-realization/)
 > 
 > [Python 解析 Wav 文件并绘制波形的方法](https://www.cnblogs.com/lzxwalex/p/6922099.html)
+
+### Chinese_word_segmentation(中文分词)
+
+*本次实验内容是在linux上完成，需要提前安装CRF++（Windows上如果安装CRF++应该也能够运行）。*
+
+#### 关于CRF++模板
+
+CRF中有两种模板U-gram和B-gram。
+
+U-gram：一元模板(unigram template),表示只与当前位置对应的标签相关的特征。
+
+B-gram：二元模板(bigram template),表示前一个位置和当前位置对应的标签相关的特征。
+
+以下面的模板为例：
+```
+# Unigram  
+U00:%x[-2,0]  
+U01:%x[-1,0]  
+U02:%x[0,0]  
+U03:%x[1,0]  
+U04:%x[2,0]  
+U05:%x[-2,0]/%x[-1,0]/%x[0,0]  
+U06:%x[-1,0]/%x[0,0]/%x[1,0]  
+U07:%x[0,0]/%x[1,0]/%x[2,0]  
+U08:%x[-1,0]/%x[0,0]  
+U09:%x[0,0]/%x[1,0]  
+   
+# Bigram  
+B
+```
+假如我们训练的语料句子是：我是中国人（下标：-2,-1,0,1,2），我们考虑的当前位置为：“中”
+
+U0--U4 特征模板：表示某个位置与当前位置的信息之间的关系，比如说 U00，就是指的 “我” 和“中”之间的联系
+
+U5--U7 特征模板：表示某三个位置与当前位置的信息之间的关系，比如说 U05，就是指的 “我”、“是”、“中” 和“中”之间的联系
+
+U8--U9 特征模板：表示某两个位置与当前位置的信息之间的关系，比如说 U08，就是指的 “是”、“中” 和“中”之间的联系
+
+一般使用 Unigram 就足够了。若使用 Bigram，也使用最简单的模板。它会带来效率低下的效果。
+
+> 参考文章
+>
+>[中文分词入门之字标注法4](http://www.52nlp.cn/%E4%B8%AD%E6%96%87%E5%88%86%E8%AF%8D%E5%85%A5%E9%97%A8%E4%B9%8B%E5%AD%97%E6%A0%87%E6%B3%A8%E6%B3%954)
+>[CRF 算法的特征模板总结](https://blog.csdn.net/sihailongwang/article/details/75340491)
+>
 
 ## 遇到的问题(Problems)
 
@@ -126,7 +175,7 @@ if cv2.waitKey(1) & 0xFF == ord('q'):
 ```
 那么这句话是什么意思呢？这句话的有一个函数``` cv2.waitKey ```主要作用是等待1ms的键盘输入然后返回输入符号的ASCII码，如果没有输入则返回-1。后面的``` &0xFF ```是取返回值的低八位，主要是针对64位操作系统有时返回值不止8位，等号后面的``` ord('q') ```是计算q键的ASCII码，所以这句话是说“按q键退出”。
 
-不要小瞧了这简单的一段程序，就是因为少了这一句，while循环在飞速的执行，导致窗口没有画面显示，而有了这段程序while循环在执行时就会有1ms的暂停，就是这1ms使得图像得以正常显示。无论是从摄像头中读取画面还是从视频中读取，都需要这样一个停顿来时图像正常显示，但是停顿时间不太一样，摄像头由于需要实时性，所以1ms就好（``` cv2.waitKey ```中传参数0则为无限等待直到键盘有输入），但是对于视频，需要其以正常速度播放的话一般设置在25~30ms（不同的等待时间就相当于改变视频的播放速度）
+不要小瞧了这简单的一段程序，就是因为少了这一句，while循环在飞速的执行，窗口刷新速度太快，导致窗口没有画面显示，而有了这段程序while循环在执行时就会有1ms的暂停，就是这1ms使得图像得以正常显示。无论是从摄像头中读取画面还是从视频中读取，都需要这样一个停顿来时图像正常显示，但是停顿时间不太一样，摄像头由于需要实时性，所以1ms就好（``` cv2.waitKey ```中传参数0则为无限等待直到键盘有输入），但是对于视频，需要其以正常速度播放的话一般设置在25~30ms（不同的等待时间就相当于改变视频的播放速度）
 
 #### RGB2GRAY OR BGR2GRAY
 
