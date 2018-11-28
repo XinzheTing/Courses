@@ -48,21 +48,6 @@ plt.show()
 
 imgGrayEnhanced = imgArrayEnhanced.reshape(512, 512)
 
-# 恢复彩色图像
-# B = img[:, :, 0]
-# G = img[:, :, 1]
-# R = img[:, :, 2]
-# g = imgGrayEnhanced[:]
-# p = 0.2989
-# q = 0.5870
-# t = 0.1140
-# RNew = (g-t*B-q*G)/p
-# RNew = np.uint8(RNew)
-# imgEnhanced = np.zeros((img.shape)).astype("uint8")
-# imgEnhanced[:, :, 0] = B
-# imgEnhanced[:, :, 1] = G
-# imgEnhanced[:, :, 2] = RNew
-
 cv2.imshow('enhanced', imgGrayEnhanced)
 cv2.imshow('before', imgGray)
 cv2.waitKey(0)
